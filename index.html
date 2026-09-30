@@ -5,27 +5,77 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Telma Teixeira – Marketing Strategist &amp; Campaign Manager</title>
 <meta name="description" content="Marketing Strategist &amp; Campaign Manager focused on growth, data and brand storytelling.">
+<meta name="theme-color" content="#E3F0E6">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Telma Teixeira – Marketing Strategist &amp; Campaign Manager">
+<meta property="og:description" content="Marketing Strategist &amp; Campaign Manager focused on growth, data and brand storytelling.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232F9E74'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='sans-serif' font-size='28' font-weight='600' fill='white'%3ETT%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+(() => {
+  const root = document.documentElement;
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  let savedTheme;
+
+  try {
+    savedTheme = localStorage.getItem('theme');
+  } catch {}
+
+  const setTheme = (theme) => {
+    root.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#151D1A' : '#E3F0E6';
+  };
+
+  setTheme(savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : systemTheme);
+  root.classList.add('theme-ready');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('#theme-toggle');
+    toggle.checked = root.dataset.theme === 'dark';
+    toggle.addEventListener('change', () => {
+      const theme = toggle.checked ? 'dark' : 'light';
+      setTheme(theme);
+      try {
+        localStorage.setItem('theme', theme);
+      } catch {}
+    });
+  });
+})();
+</script>
 <style>
 :root{
+  color-scheme:light;
   --bg:#E3F0E6; --surface:#F3F9F4; --ink:#3B434B; --strong:#2A3037; --muted:#5C666F;
-  --line:#C5D8CA; --accent:#2F9E74;
+  --line:#C5D8CA; --accent:#2F9E74; --strong-hover:#000;
+  --contact-bg:#2A3037; --contact-ink:#D5DED8; --contact-heading:#fff;
   --sans:'Space Grotesk',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#151D1A; --surface:#202A25; --ink:#DCE7E0; --strong:#F2F7F3; --muted:#A9B8AF;
+  --line:#3A4940; --accent:#83D6A8; --strong-hover:#CBD6CF;
+  --contact-bg:#0E1411; --contact-ink:#C9D5CE; --contact-heading:#F6FFF8;
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--sans);-webkit-font-smoothing:antialiased}
 a{color:inherit}
 a:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.skip-link{position:absolute;top:1rem;left:1rem;z-index:1;padding:.65rem 1rem;background:var(--contact-bg);color:var(--contact-heading);text-decoration:none;transform:translateY(-160%)}
+.skip-link:focus{transform:translateY(0)}
 .wrap{max-width:60rem;margin:0 auto;padding:0 1.5rem}
 
 nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;font-size:.95rem}
 nav b{font-weight:600;color:var(--strong)}
-nav div{display:flex;gap:1.75rem}
+nav div{display:flex;align-items:center;gap:1.75rem}
 nav a{text-decoration:none;color:var(--muted)}
 nav a:hover{color:var(--strong)}
+.theme-switch{display:none;align-items:center;gap:.45rem;color:var(--muted);font-size:.9rem;white-space:nowrap;cursor:pointer}
+.theme-ready .theme-switch{display:inline-flex}
+.theme-switch input{width:1rem;height:1rem;margin:0;accent-color:var(--accent)}
 
 .hero{padding:clamp(3rem,9vw,6.5rem) 0 clamp(3rem,7vw,4.5rem)}
 .status{display:inline-flex;align-items:center;gap:.6rem;padding:.35rem .9rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;font:400 .85rem var(--mono);color:var(--muted)}
@@ -35,7 +85,7 @@ h1{margin-top:1.75rem;font:500 clamp(2.8rem,9vw,6rem)/1 var(--sans);letter-spaci
 .actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
 .btn{padding:.8rem 1.4rem;border-radius:10px;text-decoration:none;font-weight:500;font-size:.98rem;border:1px solid var(--strong)}
 .btn.primary{background:var(--strong);color:var(--surface)}
-.btn.primary:hover{background:#000}
+.btn.primary:hover{background:var(--strong-hover)}
 .btn.ghost:hover{background:var(--surface)}
 
 .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:clamp(2.5rem,6vw,4rem);background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -57,31 +107,48 @@ h2{font:500 clamp(1.5rem,3.5vw,2rem)/1.1 var(--sans);letter-spacing:-.03em;color
 .job time{font:400 .85rem var(--mono);color:var(--muted);padding-top:.2rem}
 .job h3{font:500 1.1rem/1.35 var(--sans);color:var(--strong)}
 .job p{color:var(--muted)}
+.job .employer{font-size:.95rem}
 
 .skills{display:flex;flex-wrap:wrap;gap:.5rem}
 .skills span{padding:.4rem .9rem;background:var(--surface);border:1px solid var(--line);border-radius:8px;font:400 .88rem var(--mono);color:var(--ink)}
 
-.contact{padding:clamp(2rem,5vw,3rem);background:var(--strong);color:#D5DED8;border-radius:18px}
-.contact h2{color:#fff;margin-bottom:.75rem}
-.contact a.mail{font:500 clamp(1.4rem,5vw,2.4rem)/1.2 var(--sans);letter-spacing:-.03em;color:#fff;text-decoration:none;border-bottom:2px solid var(--accent);word-break:break-word}
-.contact ul{list-style:none;padding:0;display:flex;gap:1.5rem;margin-top:1.5rem;font-size:.95rem}
-.contact li a{color:#D5DED8}
-.contact a:focus-visible{outline-color:#fff}
-footer{padding:2rem 0;font-size:.85rem;color:var(--muted)}
+.contact{padding:clamp(2rem,5vw,3rem);background:var(--contact-bg);color:var(--contact-ink);border-radius:18px}
+.contact h2{color:var(--contact-heading);margin-bottom:.75rem}
+.contact-intro{margin-bottom:1rem;color:var(--contact-ink)}
+.contact a.mail{font:500 clamp(1.4rem,5vw,2.4rem)/1.2 var(--sans);letter-spacing:-.03em;color:var(--contact-heading);text-decoration:none;border-bottom:2px solid var(--accent);word-break:break-word}
+.contact a:focus-visible{outline-color:var(--contact-heading)}
+footer{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:2rem 0;font-size:.85rem;color:var(--muted)}
+footer nav{gap:1.25rem;padding:0;font-size:inherit}
+footer a{text-decoration:none}
+footer a:hover{color:var(--strong)}
 
 @media (max-width:640px){
   .metrics{grid-template-columns:1fr}
   .job{grid-template-columns:1fr}
 }
+@media (max-width:480px){
+  nav{align-items:flex-start;flex-direction:column;gap:.75rem}
+  nav div{flex-wrap:wrap;gap:1rem}
+  footer{align-items:flex-start;flex-direction:column}
+  footer nav{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav aria-label="Main">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav aria-label="Main navigation">
     <b>telma.teixeira</b>
-    <div><a href="#work">Work</a><a href="#experience">Experience</a><a href="#contact">Contact</a></div>
+    <div>
+      <a href="#work">Work</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+      <label class="theme-switch"><input id="theme-toggle" type="checkbox">Dark mode</label>
+    </div>
   </nav>
 
+  <main id="main">
   <header class="hero">
     <h1>Telma Teixeira</h1>
     <p>Marketing Strategist &amp; Campaign Manager. I combine data, content and creative to grow brands and I measure every step.</p>
@@ -96,9 +163,37 @@ footer{padding:2rem 0;font-size:.85rem;color:var(--muted)}
     </div>
   </header>
 
+  <section id="work" aria-labelledby="work-title">
+    <h2 id="work-title">How I work</h2>
+    <div class="cases">
+      <article class="card">
+        <span class="num" aria-hidden="true">01</span>
+        <h3>Connect strategy and creative</h3>
+        <p>I bring data, content and creative together around clear growth goals.</p>
+        <p class="tags">Strategy · content · creative</p>
+      </article>
+      <article class="card">
+        <span class="num" aria-hidden="true">02</span>
+        <h3>Manage campaigns</h3>
+        <p>I manage campaigns across PPC, programmatic and social advertising.</p>
+        <p class="tags">PPC · programmatic · social ads</p>
+      </article>
+      <article class="card">
+        <span class="num" aria-hidden="true">03</span>
+        <h3>Measure and improve</h3>
+        <p>I track performance to understand what is working and guide the next steps.</p>
+        <p class="tags">Analytics · GA4 · optimization</p>
+      </article>
+    </div>
+  </section>
+
   <section id="experience">
     <h2>Experience</h2>
-    <div class="job"><time>2024 – now</time><div><h3>Campaign Manager | PPC, Programmatic and Social Ads</h3></div></div>
+    <div class="job"><time>2024 – now</time><div><h3>Campaign Manager | PPC, Programmatic &amp; Social Ads</h3><p class="employer">Wise Pirates</p></div></div>
+    <div class="job"><time>2022 – 2024</time><div><h3>Digital Performance Specialist</h3><p class="employer">10.digital</p></div></div>
+    <div class="job"><time>2022 – 2022</time><div><h3>Digital Marketer</h3><p class="employer">Valérius Hub</p></div></div>
+    <div class="job"><time>2019 – 2020</time><div><h3>Digital Marketer</h3><p class="employer">Rick & Mark</p></div></div>
+    <div class="job"><time>2018 – 2018</time><div><h3>Marketing Assistant (Extracurricular Internship)</h3><p class="employer">Limial</p></div></div>
   </section>
 
   <section id="skills">
@@ -112,14 +207,20 @@ footer{padding:2rem 0;font-size:.85rem;color:var(--muted)}
   <section id="contact">
     <div class="contact">
       <h2>Let’s work together</h2>
+      <p class="contact-intro">For campaign and marketing inquiries, send me an email:</p>
       <a class="mail" href="mailto:telmamarisa.teixeira@gmail.com">telmamarisa.teixeira@gmail.com</a>
-      <ul>
-        <li><a href="https://www.linkedin.com/in/telmateixeira/">LinkedIn</a></li>
-      </ul>
     </div>
   </section>
+  </main>
 
-  <footer>© 2026 Telma Teixeira</footer>
+  <footer>
+    <span>© 2026 Telma Teixeira</span>
+    <nav aria-label="Footer navigation">
+      <a href="mailto:telmamarisa.teixeira@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/telmateixeira/">LinkedIn</a>
+      <a href="#main">Back to top ↑</a>
+    </nav>
+  </footer>
 </div>
 </body>
 </html>
